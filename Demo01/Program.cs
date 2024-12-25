@@ -1,5 +1,10 @@
-var builder = WebApplication.CreateBuilder(args);
+using Demo01.Data;
+using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder(args);
+IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            string connectionString = configuration.GetConnectionString("EduConnect");
+            builder.Services.AddDbContext<DemoDbContext>(options =>options.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

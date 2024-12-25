@@ -18,5 +18,5 @@ public class DemoDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<UserModel>().HasNoKey();
     }
-    public DbSet<UserModel> Users { get; set; }
+    public DbSet<UserModel> User { get; set; }
 }
