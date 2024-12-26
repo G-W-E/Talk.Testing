@@ -17,6 +17,8 @@ public class DemoDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<UserModel>().HasNoKey();
+        modelBuilder.Entity<AuthenModel>().HasNoKey();
     }
     public DbSet<UserModel> User { get; set; }
+    public DbSet<AuthenModel> Authens { get; set; }
 }

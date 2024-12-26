@@ -8,10 +8,12 @@ namespace Demo01.Controllers
     public class LoginController : Controller
     {
         private readonly IAuthentication authentication;
+        private readonly ILogger<LoginController> logger;
 
-        public LoginController(IAuthentication authentication)
+        public LoginController(IAuthentication authentication, ILogger<LoginController> logger)
         {
             this.authentication = authentication;
+            this.logger = logger;
         }
         public ActionResult Index()
         {
@@ -28,9 +30,22 @@ namespace Demo01.Controllers
         [HttpPost()]
         public ActionResult Index(LoginDto loginDto)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var validate = authentication.ValidateUser(loginDto.UserName, loginDto.Password);
+                if (ModelState.IsValid)
+                {
+                    var validate = authentication.ValidateUser(loginDto.UserName, loginDto.Password);
+                    if (validate.Result)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    return View();
+                }
+                return View();
+            }
+            catch (System.Exception ex)
+            {
+                logger.LogError(ex.StackTrace);
             }
             return View();
         }
