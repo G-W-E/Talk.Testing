@@ -1,18 +1,19 @@
 using Demo01.Data;
 using Demo01.Dtos;
 using Demo01.Models;
+using Demo01.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Demo01.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IAuthentication authentication;
+        private readonly IAuthenticationService  authenticationService;
         private readonly ILogger<LoginController> logger;
 
-        public LoginController(IAuthentication authentication, ILogger<LoginController> logger)
+        public LoginController(IAuthenticationService authenticationService, ILogger<LoginController> logger)
         {
-            this.authentication = authentication;
+            this.authenticationService = authenticationService;
             this.logger = logger;
         }
         public ActionResult Index()
@@ -34,7 +35,7 @@ namespace Demo01.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var validate = authentication.ValidateUser(loginDto.UserName, loginDto.Password);
+                    var validate = authenticationService.ValidateUser(loginDto.UserName, loginDto.Password);
                     if (validate.Result)
                     {
                         return RedirectToAction("Index", "Home");

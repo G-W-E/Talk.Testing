@@ -1,9 +1,8 @@
 using System;
-using Demo01.Models;
 
-namespace Demo01.Data;
+namespace Demo01.Repositories;
 
-public interface IAuthentication
+public interface IAuthenticationRepository
 {
     Task<bool> ValidateUser(string userName, string password);
 }
