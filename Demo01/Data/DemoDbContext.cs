@@ -6,10 +6,6 @@ namespace Demo01.Data;
 
 public class DemoDbContext : DbContext
 {
-    public DemoDbContext() : base()
-    {
-
-    }
     public DemoDbContext(DbContextOptions<DemoDbContext> options) : base(options)
     {
     }

@@ -15,11 +15,12 @@ public class AuthenticationRepository : IAuthenticationRepository
     {
         try
         {
-            var result = this.dbContext.Authens
-                                            .FromSqlInterpolated($"EXEC ValidateUser {userName}, {password}")
-                                            .AsEnumerable()
-                                            .Select(u => u.IsValid).FirstOrDefault();
-            if (result == 1)
+            var resultList = await this.dbContext.Authens
+                                           .FromSqlInterpolated($"EXEC ValidateUser {userName}, {password}")
+                                           .ToListAsync();
+
+            var isValid = resultList.FirstOrDefault()?.IsValid;
+            if (isValid == 1)
             {
                 return await Task.FromResult(true);
             }

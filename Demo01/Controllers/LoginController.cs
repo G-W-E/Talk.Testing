@@ -18,7 +18,7 @@ namespace Demo01.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
         // GET: LoginController
         /// <summary>
@@ -40,15 +40,15 @@ namespace Demo01.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    return View();
+                    return View("Index");
                 }
-                return View();
+                return View("Index");
             }
             catch (System.Exception ex)
             {
                 logger.LogError(ex.StackTrace);
             }
-            return View();
+            return View("Index");
         }
 
     }
